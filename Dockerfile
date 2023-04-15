@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python
 WORKDIR /app
 RUN pip3 install -r time
 RUN pip3 install -r colorama
