@@ -11,7 +11,6 @@ pipeline {
             steps {
                 script {
                     sh 'docker build ./ -t emikadrei/fhw:latest'
-                    echo "${push}" 
                 }
             }
         }
@@ -20,7 +19,6 @@ pipeline {
                 expression {
                     push == 'true'
                 }
-        
             }
             steps {
                 script {
@@ -34,11 +32,16 @@ pipeline {
             
         }
         stage('Deploy') {
+            when {
+                expression {
+                    push == 'true'
+                }
+            }
             steps {
                 script {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPassword')]) {
                         sshagent(['Jenkins-deploy-private-key']) {
-                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@44.202.162.186 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw"'
+                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.174.247.141 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw"'
                         }
                     }    
                     
