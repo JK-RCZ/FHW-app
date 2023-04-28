@@ -16,17 +16,13 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
-            when {
-                expression { 
-                   (${push} == "true")
-                }
-            }
+            
             steps {
                 script {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPassword')]) {
-                    sh 'sudo docker login -u emikadrei -p ${DockerHubPassword}'
+                    sh 'docker login -u emikadrei -p ${DockerHubPassword}'
                     }
-                    sh 'sudo docker image push emikadrei/fhw'
+                    sh 'docker image push emikadrei/fhw'
                     
                 }
             }
