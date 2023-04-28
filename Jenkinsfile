@@ -17,10 +17,11 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                (params.push == true)
+                expression {
+                    params.push == 'true'
                 }
+        
             }
-            
             steps {
                 script {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPassword')]) {
@@ -46,6 +47,6 @@ pipeline {
             }  
             
         }
-        
+    
     }
 }
