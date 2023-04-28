@@ -17,8 +17,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                expression { 
-                   ${push} == "true"
+                push == "true"
                 }
             }
             
