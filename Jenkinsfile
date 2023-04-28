@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                params.push true
+                (params.push == true)
                 }
             }
             
