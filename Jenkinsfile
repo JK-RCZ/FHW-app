@@ -15,6 +15,11 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
+            steps {
+                echo "${push}"                    
+                }
+            }
+            
             when {
                 expression { 
                    params.push == "true"
