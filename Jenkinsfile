@@ -11,15 +11,11 @@ pipeline {
             steps {
                 script {
                     sh 'docker build ./ -t emikadrei/fhw:latest'
+                    echo "${push}" 
                 }
             }
         }
         stage('Push Docker Image') {
-            steps {
-                echo "${push}"                    
-                }
-            }
-            
             when {
                 expression { 
                    params.push == "true"
@@ -52,3 +48,4 @@ pipeline {
         }
         
     }
+}
