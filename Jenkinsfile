@@ -2,18 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Loading payload info') {
-            steps {
-                echo "${branch}"
-            }
-        }
-        stage('Checkout Code') {
-            steps {
-                checkout scmGit(branches: [[name: '*/staging']], extensions: [], userRemoteConfigs: [[credentialsId: '0b33b329-d53f-49c2-8317-819a9fbb546a', url: 'https://github.com/JK-RCZ/FHW-app.git']])
-            }
-        }
+        
         stage('Build Docker Image') {
             steps {
+                echo "${branch}"
                 script {
                     sh 'docker build ./ -t emikadrei/fhw:latest'
                 }
@@ -35,10 +27,10 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Deploy To Staging Server') {
             when {
                 expression {
-                    push == 'true'
+                    branch == 'refs/heads/staging'
                 }
             }
             steps {
@@ -46,6 +38,22 @@ pipeline {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPassword')]) {
                         sshagent(['Jenkins-deploy-private-key']) {
                            sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.173.145.124 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw"'
+                        }
+                    }    
+                }
+            }  
+        }
+        stage('Deploy To Prod Server') {
+            when {
+                expression {
+                    branch == 'refs/heads/production'
+                }
+            }
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPassword')]) {
+                        sshagent(['Jenkins-deploy-private-key']) {
+                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.210.63.0 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw"'
                         }
                     }    
                 }
