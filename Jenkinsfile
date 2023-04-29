@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('Loading payload info') {
             steps {
-                resolveScm source: github(credentialsId: '0b33b329-d53f-49c2-8317-819a9fbb546a', id: '_', repoOwner: 'JK-RCZ', repository: 'FHW-app', traits: [gitHubBranchDiscovery(3), gitHubPullRequestDiscovery(2), gitHubForkDiscovery(strategyId: 2, trust: gitHubTrustPermissions())]), targets: ['']
-                echo "${gitHubBranchDiscovery}"
+                echo 'git repository name is :' + repository_name
             }
         }
         stage('Checkout Code') {
