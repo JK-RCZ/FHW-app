@@ -29,7 +29,6 @@ pipeline {
                     
                 }
             }
-            
         }
         stage('Deploy') {
             when {
@@ -44,12 +43,8 @@ pipeline {
                            sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.174.247.141 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw"'
                         }
                     }    
-                    
                 }
-                
             }  
-            
         }
-    
     }
 }
