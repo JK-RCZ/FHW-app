@@ -37,7 +37,7 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPassword')]) {
                         sshagent(['Jenkins-deploy-private-key']) {
-                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.173.145.124 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw"'
+                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.173.145.124 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw > result.txt"'
                         }
                     }    
                 }
@@ -53,7 +53,7 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPassword')]) {
                         sshagent(['jenkins-deploy-to-prod-key']) {
-                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.210.63.0 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw"'
+                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.210.63.0 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw > result.txt"'
                         }
                     }    
                 }
