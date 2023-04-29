@@ -5,7 +5,6 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                echo "${branch}"
                 script {
                     sh 'docker build ./ -t emikadrei/fhw:latest'
                 }
