@@ -2,16 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Loading payload info') {
-            steps {
-                echo "${branch}"
-            }
-        }
-        stage('Checkout Code') {
-            steps {
-                checkout scmGit(branches: [[name: '*/staging']], extensions: [], userRemoteConfigs: [[credentialsId: '0b33b329-d53f-49c2-8317-819a9fbb546a', url: 'https://github.com/JK-RCZ/FHW-app.git']])
-            }
-        }
+        
         stage('Build Docker Image') {
             steps {
                 script {
