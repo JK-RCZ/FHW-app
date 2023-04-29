@@ -2,9 +2,14 @@ pipeline {
     agent any
 
     stages {
+        stage('Loading payload info') {
+            steps {
+                resolveScm source: github(credentialsId: '0b33b329-d53f-49c2-8317-819a9fbb546a', id: '_', repoOwner: 'JK-RCZ', repository: 'FHW-app', traits: [gitHubBranchDiscovery(3), gitHubPullRequestDiscovery(2), gitHubForkDiscovery(strategyId: 2, trust: gitHubTrustPermissions())]), targets: ['']
+                echo "${gitHubBranchDiscovery}"
+            }
+        }
         stage('Checkout Code') {
             steps {
-                echo "env: ${env.getEnvironment()}"
                 checkout scmGit(branches: [[name: '*/staging']], extensions: [], userRemoteConfigs: [[credentialsId: '0b33b329-d53f-49c2-8317-819a9fbb546a', url: 'https://github.com/JK-RCZ/FHW-app.git']])
             }
         }
