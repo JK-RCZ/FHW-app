@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Loading payload info') {
             steps {
-                echo 'git repository name is :' + repository_name
+                echo "${repository_name}"
             }
         }
         stage('Checkout Code') {
