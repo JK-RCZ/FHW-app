@@ -27,7 +27,7 @@ for i in range(33):
        time.sleep(1)
 print(Fore.WHITE + "\nGod damn it!")
 time.sleep(2)
-print("\nFuck Hello World for FOR EVER!\n")
+print("\nLuck Hello World for FOR EVER!\n")
 time.sleep(2)
 print(Fore.RED + "Launching Skynet...\n")
 time.sleep(3)
