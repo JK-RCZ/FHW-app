@@ -3,8 +3,7 @@
 
 grep -i fuck /home/ec2-user/result.txt > /home/ec2-user/count.txt
 wc -l count.txt > /home/ec2-user/count2.txt
-grep -Eo "[0-9]{1,4}" count2.txt > /home/ec2-user/count3.txt
-COUNT = $(readFile /home/ec2-user/count3.txt)
+COUNT = $(grep -Eo "[0-9]{1,4}" count2.txt)
 echo $COUNT
 
 
