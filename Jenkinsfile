@@ -5,7 +5,6 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                echo "${branch}"
                 script {
                     sh 'docker build ./ -t emikadrei/fhw:latest'
                 }
@@ -37,7 +36,7 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPassword')]) {
                         sshagent(['Jenkins-deploy-private-key']) {
-                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.173.145.124 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw > result.txt"'
+                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@34.239.114.17 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw > result.txt"'
                         }
                     }    
                 }
@@ -53,7 +52,7 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPassword')]) {
                         sshagent(['jenkins-deploy-to-prod-key']) {
-                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.210.63.0 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw > result.txt"'
+                           sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@3.87.69.52 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw > result.txt"'
                         }
                     }    
                 }
