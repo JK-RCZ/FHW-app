@@ -12,6 +12,7 @@ if [ $COUNT == 35 ]
             rm /home/ec2-user/count.txt
             rm /home/ec2-user/count2.txt
             exit 0
+            
             else
             echo -e "FUCK CHECK FAILED!"
             rm /home/ec2-user/result.txt
