@@ -23,7 +23,7 @@ for i in range(33):
        time.sleep(1)
        print(Fore.BLUE + "Fuck Hello World for " + str(i+1) + " times")
     else:
-       print(Fore.BLUE + "Luck Hello World for " + str(i+1) + " times")
+       print(Fore.BLUE + "Fuck Hello World for " + str(i+1) + " times")
        time.sleep(1)
 print(Fore.WHITE + "\nGod damn it!")
 time.sleep(2)

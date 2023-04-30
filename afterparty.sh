@@ -8,10 +8,10 @@ COUNT=$(sed 's/  */\t/g' /home/ec2-user/count2.txt | cut -f1)
 echo $COUNT
 if [ $COUNT == 35 ]
             then
-            echo -e "FUCK CHECK = $COUNT OUT OF 35 - SUCCESSFULL!"
+            echo -e "FUCK CHECK: $COUNT OUT OF 35 - SUCCESSFULL!"
             exit 0
 
             else
-            echo -e "FUCK CHECK = $COUNT OUT OF 35 - FAILED!"
+            echo -e "FUCK CHECK: $COUNT OUT OF 35 - FAILED!"
             exit 1
             fi
