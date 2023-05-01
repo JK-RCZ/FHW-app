@@ -38,6 +38,7 @@ pipeline {
                         sshagent(['Jenkins-deploy-private-key']) {
                            sh 'ssh -t -t -o StrictHostKeyChecking=no ec2-user@54.236.138.151 "sudo docker login -u emikadrei -p ${DockerHubPassword} && sudo docker image pull emikadrei/fhw && sudo docker run emikadrei/fhw > result.txt"'
                            sh 'scp ec2-user@54.236.138.151:/home/ec2-user/result.txt /home/ec2-user/'
+                           
                         }
                     }    
                 }
@@ -58,6 +59,11 @@ pipeline {
                     }    
                 }
             }  
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: '/home/ec2-user/result.txt', followSymlinks: false
         }
     }
 }
